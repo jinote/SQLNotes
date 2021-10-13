@@ -19,7 +19,7 @@ AND trip_miles <= 10
 GROUP BY payment_type
 ORDER BY avg(tips) DESC
 LIMIT 1;
-'''
+```
 
 Find the most expensive taxi "company"
 ```sql
@@ -29,3 +29,4 @@ WHERE trip_miles != 0
 GROUP BY company
 ORDER BY SUM(fare)/SUM(trip_miles) DESC
 LIMIT 1;
+```
