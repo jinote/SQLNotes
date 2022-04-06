@@ -26,6 +26,9 @@ where emp_name = @emp_name
 
 ```
 
+**what is information_schema.tables in sql?**
+- Provides access to database metadata, information about the MySQL server such as the name of a database or table, the data type of a column, or access privileges.
+
 **Answer**
 ```sql
 SET @range = 1000;
