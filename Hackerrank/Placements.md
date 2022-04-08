@@ -17,4 +17,5 @@ where p.salary > (select p2.salary
                  )
 group by s.name, p.salary
 order by p.salary desc
+
 ```
