@@ -19,7 +19,7 @@ order by count(occupation) asc, occupation;
 
 ```
 
-**Answer**<br>
+**Result**<br>
 Aamina(D)<br>
 Ashley(P)<br>
 Belvet(P)<br>
