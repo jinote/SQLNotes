@@ -44,7 +44,7 @@ from first_order
 ### Categorization
 Organize numerical data into categorical data
 - generate a summary
-- transform data into a more intuitive formate
+- transform data into a more intuitive format
 - examples
 1) numerical values -> low, medium, high
 2) monthly / yearly profit -> net gain / loss
