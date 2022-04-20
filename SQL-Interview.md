@@ -23,7 +23,7 @@ Question
 - % of users whose first order was immediate order
 - Immediate order = same-day order
 
-Ratio strategy in the strategy<br>
+Ratio strategy<br>
 Numerator: # of first orders are immedient orders<br>
 Denominator: # of distinct users<br>
 -> Compute the ratio
