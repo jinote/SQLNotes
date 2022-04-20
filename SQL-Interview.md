@@ -4,7 +4,7 @@
 - Cumulative Sums
 
 ### Ratio 
-- Comute ratio / percentage
+- Compute ratio / percentage
 - Given user activities history / system logs
 - Examples
 1) Calculating click through rate of an advertisement
