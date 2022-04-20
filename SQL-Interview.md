@@ -123,7 +123,7 @@ select employee_id,
 from employee
 ```
 
-2) ranking function 
+**2) ranking function**<br>
 useful for selecting the top N records per category
 - row_number
 - rank
@@ -174,7 +174,7 @@ on e.departmentId = d.id) as t
 where rank <= 3
 ```
 
-2) Analytics Functions
+**3) Analytics Functions**<br>
 - Calculate an aggregate value based on a group of rows
 - Compute moving averages, running totals, percentages or top-N results within a group 
 
