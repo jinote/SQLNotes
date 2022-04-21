@@ -16,5 +16,5 @@ ON h.hacker_id = s.hacker_id
 WHERE d.score = s.score
 GROUP BY h.hacker_id, h.name
 HAVING count(h.hacker_id) > 1
-ORDER BY count(h.hacker_id) desc, h.hacker_id asc
+ORDER BY count(h.hacker_id) DESC, h.hacker_id ASC
 ```
