@@ -11,20 +11,19 @@ solution
 -- order by power desc
 -- order by age desc
 
-select w.id, wp.age, w.coins_needed, w.power
-from Wands as w
-join Wands_Property as wp
-on w.code = wp.code
-where wp.is_evil = 0
-and w.coins_needed = (
-select min(w2.coins_needed)
-from Wands as w2
-join Wands_Property as wp2
-on w2.code = wp2.code
-where wp.age = wp2.age
-and w.power = w2.power
+SELECT w.id, wp.age, w.coins_needed, w.power
+FROM Wands AS w
+JOIN Wands_Property AS wp
+ON w.code = wp.code
+WHERE wp.is_evil = 0
+AND w.coins_needed = (
+      SELECT min(w2.coins_needed)
+      FROM Wands AS w2
+      JOIN Wands_Property AS wp2
+      ON w2.code = wp2.code
+      WHERE wp.age = wp2.age
+      AND w.power = w2.power
 )
-order by w.power desc, 
+ORDER BY w.power desc, 
 wp.age desc 
-
 ```
