@@ -5,16 +5,16 @@ Julia just finished conducting a coding contest, and she needs your help assembl
 -- full scores > 1 
 -- order by total num of challenges desc, hacker_id asc
 
-select h.hacker_id, h.name
-from submissions s
-join challenges c
-on s.challenge_id = c.challenge_id
-join difficulty d
-on c.difficulty_level = d.difficulty_level
-join hackers h
-on h.hacker_id = s.hacker_id
-where d.score = s.score
-group by h.hacker_id, h.name
-having count(h.hacker_id) > 1
-order by count(h.hacker_id) desc, h.hacker_id asc
+SELECT h.hacker_id, h.name
+FROM submissions AS s
+JOIN challenges AS c
+ON s.challenge_id = c.challenge_id
+JOIN difficulty d
+ON c.difficulty_level = d.difficulty_level
+JOIN hackers h
+ON h.hacker_id = s.hacker_id
+WHERE d.score = s.score
+GROUP BY h.hacker_id, h.name
+HAVING count(h.hacker_id) > 1
+ORDER BY count(h.hacker_id) desc, h.hacker_id asc
 ```
