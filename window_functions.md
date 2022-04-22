@@ -160,5 +160,127 @@ SELECT value,
 FROM table
 ```
   
-
+**More examples of window function**
+```sql
+# bring all rows with Max_Salary
+SELECT e.*,
+  MAX(salary) OVER() AS Max_Salary
+FROM employee e
   
+# Max_Salary in each dept
+SELECT e.*, 
+  MAX(salary) OVER(PARTITION BY dept_nmae) AS max_salary
+FROM employee e
+
+# Row_number
+SELECT e.*,
+  ROW_NUMBER() OVER() AS RN
+
+SELECT e.*,
+  ROW_NUMBER() OVER(PARTITION BY dept_name) AS RN
+FROM employee e;
+
+-- Fetch the first 2 employees from each department to join the company
+SELECT * FROM (
+  SELECT e.*,
+    ROW_NUMBER() OVER(PARTITION BY dept_name ORDER BY emp_id) AS RN
+  FROM employee e) x
+WHERE x.rn < 3;
+
+-- RANK 
+-- Fetch the top 3 employees in each dept earning the max salary
+SELECT * FROM (
+  SELECT e.*,
+  RANK() OVER(PARTITION BY dept_name ORDER BY salary DESC) AS rnk
+  FROM employee e) x
+WHERE x.rnk < 4;
+  
+SELECT e.*,
+  RANK() OVER(PARTITION BY dept_name ORDER BY salary DESC) AS rnk,
+  DENSE_RANK() OVER(PARTITION BY dept_name ORDER BY salary DESC) AS dense_rank,
+  ROW_NUMBER() OVER(PARTITION BY dept_name ORDER BY salary DESC) AS rn
+FROM employee e
+
+-- Lead
+SELECT e.*,
+  LAG(salary) OVER(PARTITION BY dept_name ORDER BY emp_id) AS prev_emp_salary
+  LEAD(salary) OVER(PARTITION BY dept_name ORDER BY emp_id) AS next_emp_salary
+FROM employee e
+
+-- Fetch a query to display if the salary of an employee is higher, lower or equal to the previous employee
+SELECT e.*,
+  LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id AS prev_emp_salary,
+  CASE WHEN 
+```
+  
+```sql
+first_value(product_name) 
+  over (partition by product_category order by price desc)
+  as most_exp_product,
+last_value(product_name)
+  over (partition by product_category order by price desc
+  rows between unbounded preceding and unbounded following)
+  # range between unbounded preceding and current row)
+  # range between 2 preceding and 2 following)
+  as least_exp_product
+from product
+where product_category = "Phone";
+  
+-- Alternate way to write SQL query using Window functions
+select *, 
+  first_value(product_name) over w as most_exp_product,
+  last_value(product_name) over w as least_exp_product
+from product
+where product_category = 'Phone'
+window w as (partition by product_category order by price desc
+  range between 2 preceding and 2 following)
+```
+  
+```sql
+-- nth_value
+select e.*,
+  nth_value(product_name, 2) over (partition by product_category order by price desc
+                                   range bewteen unbounded preceding and unbounded following);
+select e.*, 
+  nth_value(product_name, 2) 
+from product
+window w as (partition by product_category order by price desc
+             range between unbounded preceding and unbounded following);
+```
+  
+```sql
+-- ntile
+-- write a query to segregate all the expensive phones, mid range phones and the cheaper phones.
+select product_name,
+case when x.buckets = 1 then 'Expensive Phones'
+     when x.buckets = 2 then 'Mid Range Phones'
+     when x.buckets = 3 then 'Cheaper Phones' END phone_category
+from (
+  select *,
+  ntile(3) over() (order by price desc) as buckets
+  from product
+  where product_category = 'Phone') x
+```
+
+```sql
+-- CUME_DIST (cumulative distribution):
+/* value --> 1 <= cume_dist > 0 */
+/* formula = current row no (or row no with value same as current row) / total no of rows */
+-- query to fetch all products which are constituting the first 30%
+-- of the data in products table based on price
+select *, 
+  cume_dist() over (order by price desc) as cume_distribution,
+  round(cume_dist() over (order by price desc):: numeric * 100, 2) as cume_dist_percentage
+from product;
+  
+```
+  
+```sql
+select product_name, per_rank
+from (
+  select *
+  percent_rank() over(order by price) as percentage_rank,
+  round(percent_rank() over(order by price)::numeric *100, 2) as per_rank
+  from product) x
+where x.product_name = 'Galaxy Z Fold 3';
+```
