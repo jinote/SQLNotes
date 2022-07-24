@@ -1,6 +1,6 @@
 Common Table Expression (CTE) is a temporary named result set that you can reference within a SELECT, INSERT, UPDATE, or DELETE statement. You can also use a CTE in a CREATE a view, as part of the view's SELECT query.
 
-Find stores who's sales where better than the average sales accross all stores
+Question: Find stores who's sales where better than the average sales accross all stores
 
 using subquery
 ```sql
@@ -15,6 +15,7 @@ from (select s.store_id, sum(cost) as total_sales_per_store
   from sales s
   group by s.sotre_id) x;
 
+**Final Answer**
 -- 3) find the stores where total sales > avg_sales of all stores
 select *
 from (select s.store_id, sum(cost) as total_sales_per_store
